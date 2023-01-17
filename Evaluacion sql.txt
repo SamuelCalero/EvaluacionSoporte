@@ -1,0 +1,39 @@
+//Cree dos nuevas tablas para poder hacer las dos consultas de la evaluacion al no saber como estaban relacionadas obte por simplemente
+//ingresar el tipo de dato que crei correspondiente y los campos que se podian apreciar en la consulta del enunciado
+//la unica relacion que pude hacer para poder hacer los joins y unir las dos tablas fue por medio del IDTIPOCDR y asi poder hacer las consultas
+
+create table tabla2 (
+	IDPERIODO int not null,
+    IDCALENDARIO int not null,
+    IDTIPOCDR int not null,
+    EVENTDESTINATION varchar(50),
+    TX_TYPEOPERATOR int,
+    EVENTOS int,
+    CLIENTES int,
+    CTA_PPAL int
+)
+create table Tabla1 (
+  	EVENTDESTINATION varchar(100),
+   	TX_TYPEOPERATOR int(10),
+    CATEGORIAA varchar(50),
+    CATEGORIAB varchar(50),
+    CATEGORIAC varchar(50),
+    CATEGORIACC varchar(50),
+    TIPOCDR int(10),
+    CANAL varchar(25),
+    VIGENCIA date,
+    CAPACIDAD int(10),
+    LOCATIONID int,
+    PRIMARY key (TIPOCDR)
+)
+select tabla2.IDPERIODO,tabla2.IDCALENDARIO,tabla2.IDTIPOCDR,tabla2.EVENTDESTINATION,tabla2.TX_TYPEOPERATOR,tabla2.EVENTOS,tabla2.CLIENTES,tabla2.CTA_PPAL, tabla1.CATEGORIAA,tabla1.CATEGORIAB,tabla1.CATEGORIAC,tabla1.CATEGORIACC
+from tabla2
+left join tabla1
+on tabla1.TIPOCDR=tabla2.IDTIPOCDR;
+
+select 
+sum(tabla2.CLIENTES) as 'Suma Clientes',tabla2.IDPERIODO,tabla2.IDCALENDARIO,tabla2.IDTIPOCDR,tabla2.EVENTDESTINATION,tabla2.TX_TYPEOPERATOR,tabla2.EVENTOS,tabla2.CTA_PPAL, tabla1.CATEGORIAA,tabla1.CATEGORIAB,tabla1.CATEGORIAC,tabla1.CATEGORIACC
+from tabla2
+left join tabla1
+on tabla1.TIPOCDR=tabla2.IDTIPOCDR
+GROUP by tabla2.IDCALENDARIO;
